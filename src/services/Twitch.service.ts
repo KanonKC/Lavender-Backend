@@ -1,11 +1,14 @@
 import axios, { AxiosResponse } from "axios";
 import { configDotenv } from "dotenv";
 import {
+    CreateTwitchEventSubscriptionPayload,
 	TwitchAppAuthorization,
 	TwitchChannelInfo,
+	TwitchEventSubscription,
 	TwitchUserAuthorization,
     TwitchUsers,
 } from "../types/Twitch.type";
+import { getAccountById } from "../modules/Account/apis/GetAccountById.api";
 
 configDotenv();
 const { TWITCH_CLIENT_ID, TWITCH_CLIENT_SECRET, TWITCH_OAUTH_TOKEN, PORT } =
@@ -89,17 +92,17 @@ export async function getChannelInfo(broadcasterId: string) {
 //     })
 // }
 
-// export async function createEventSubSubscription(
-//     payload: CreateTwitchEventSubscriptionPayload
-// ): Promise<AxiosResponse<TwitchEventSubscription>> {
-//     const { accessToken } = await twitchStore.loadToken()
-//     return twitchAPI.post<TwitchEventSubscription>('/eventsub/subscriptions', payload, {
-//         headers: {
-//             'Content-Type': 'application/json',
-//             'Authorization': `Bearer ${accessToken}`
-//         }
-//     })
-// }
+export async function createEventSubSubscription(
+    accessToken: string,
+    payload: CreateTwitchEventSubscriptionPayload
+): Promise<AxiosResponse<TwitchEventSubscription>> {
+    return twitchAPI.post<TwitchEventSubscription>('/eventsub/subscriptions', payload, {
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${accessToken}`
+        }
+    })
+}
 
 // export async function getEventSubSubscriptions(): Promise<AxiosResponse<TwitchEventSubscription>> {
 //     const { accessToken } = await twitchStore.loadToken()
