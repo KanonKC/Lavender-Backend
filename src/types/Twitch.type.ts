@@ -141,7 +141,7 @@ export interface TwitchClip {
     is_featured: boolean;
 }
 
-export interface TwitchWebsocketSession {
+export interface TwitchWebsocketWelcomeSession {
     metadata: {
         message_id: string;
         message_type: string;
@@ -159,6 +159,17 @@ export interface TwitchWebsocketSession {
     }
 }
 
+export interface TwitchEventNotification<T> {
+    metadata: {
+        message_id: string;
+        message_type: string;
+        message_timestamp: Date;
+        subscription_type: string;
+        subscription_version: string;
+    }
+    payload: T
+}
+
 export interface TwitchUsers {
     data: {
         id: string;
@@ -173,3 +184,4 @@ export interface TwitchUsers {
         created_at: string;
     }[]
 }
+

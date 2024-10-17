@@ -3,9 +3,9 @@
 // const twitchSocket = io('wss://eventsub.wss.twitch.tv/ws');
 
 // export default twitchSocket;
-import WebSocket from "ws";
-import { TwitchEventSubscription, TwitchWebsocketSession } from "../types/Twitch.type";
 import { AxiosResponse } from "axios";
+import WebSocket from "ws";
+import { TwitchEventNotification, TwitchEventSubscription, TwitchWebsocketWelcomeSession } from "../types/Twitch.type";
 // import { createChannelChatMessageEvent } from './events/ChannelChatMessage/CreateChannelChatMessageEvent';
 // import { deleteEventSubSubscription, getEventSubSubscriptions } from './services/Twitch.service';
 
@@ -13,8 +13,9 @@ import { AxiosResponse } from "axios";
 // const socket = new WebSocket("wss://eventsub.wss.twitch.tv/ws");
 
 export async function createTwitchWebsocketSession(
-    id: string,
-	twitchEventSubCreateFunction: (id: string, sessionId: string) => Promise<AxiosResponse<TwitchEventSubscription>>
+    accountId: string,
+	twitchEventSubCreateFunction: (accountId: string, sessionId: string) => Promise<AxiosResponse<TwitchEventSubscription>>,
+    handleEventFunction: (message: TwitchEventNotification<any>) => Promise<void>
 ) {
 	const ws = new WebSocket("wss://eventsub.wss.twitch.tv/ws");
 
@@ -23,7 +24,7 @@ export async function createTwitchWebsocketSession(
 	});
 
 	ws.on("message", async (data) => {
-		const message: TwitchWebsocketSession = JSON.parse(data.toString());
+		const message = JSON.parse(data.toString());
 
 		if (message.metadata.message_type === "session_welcome") {
 			// const eventSubscriptionsResponse = await getEventSubSubscriptions()
@@ -34,10 +35,11 @@ export async function createTwitchWebsocketSession(
 
 			// await Promise.all(disconnectedSubscriptionsPromise)
 
-			const response = await twitchEventSubCreateFunction(id, message.payload.session.id);
-            console.log("It success", response.data)
-		} else {
-			console.log("Received message:", message);
+			await twitchEventSubCreateFunction(accountId, message.payload.session.id);
+            // console.log("It success", response.data)
+		} else if (message.metadata.message_type !== "session_keepalive") {
+			// console.log("Received message:", message);
+            await handleEventFunction(message);
 		}
 	});
 
@@ -48,4 +50,6 @@ export async function createTwitchWebsocketSession(
 	ws.on("close", () => {
 		console.log("WebSocket connection closed");
 	});
+
+    return ws;
 }
