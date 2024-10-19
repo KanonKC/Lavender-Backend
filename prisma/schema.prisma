@@ -14,7 +14,7 @@ model Account {
     id                          String                      @id @default(cuid())
     username                    String                      @unique
     twitchId                    String                      @unique
-    twitchAccessToken           String?
+    twitchAccessToken           String?                     @unique
     twitchRefreshToken          String?
     twitchTokenExpiresAt        DateTime?
     shoutoutWithClip            ShoutoutWithClip?
@@ -26,6 +26,7 @@ model ShoutoutWithClip {
     id                      String   @id @default(cuid())
     accountId               String   @unique
     account                 Account  @relation(fields: [accountId], references: [id])
+    key                     String   @unique @default(cuid())
     isEnabled               Boolean  @default(false)
     featuredClipPriority    Boolean  @default(true)
     createdAt               DateTime @default(now())

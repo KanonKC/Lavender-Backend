@@ -1,13 +1,15 @@
 import { FastifyInstance } from "fastify";
 import { createOrUpdateAccountController } from "./modules/Account/controllers/CreateOrUpdateAccount.controller";
+import { createShoutoutWithClipRoutes } from "./modules/ShoutoutWithClip/router";
+import { twitchAuthentication } from "./middleware/auth";
+
 
 
 function createRoutes(server: FastifyInstance) {
 
-    // Internal
     server.post('/accounts', createOrUpdateAccountController)
 
-    // External
+    createShoutoutWithClipRoutes(server)
 
 }
 

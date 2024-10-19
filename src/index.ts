@@ -35,11 +35,11 @@ server.listen({ port: PORT }, async (err, address) => {
         process.exit(1)
     }
 
-    await createTwitchWebsocketSession(
-        'cm28uxtaz0000i3mi4eejywuq',
-        createChannelChatMessageEvent,
-        handleChannelChatMessageEvent
-    )
+    // await createTwitchWebsocketSession(
+    //     'cm28uxtaz0000i3mi4eejywuq',
+    //     createChannelChatMessageEvent,
+    //     handleChannelChatMessageEvent
+    // )
 
     console.log(`Server listening at ${address}`)
 })
