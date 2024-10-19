@@ -1,8 +1,15 @@
-import fastify from "fastify";
+import { FastifyInstance } from "fastify";
 import { createOrUpdateAccountController } from "./modules/Account/controllers/CreateOrUpdateAccount.controller";
 
-const server = fastify()
 
-server.post('/accounts', createOrUpdateAccountController)
+function createRoutes(server: FastifyInstance) {
 
-export default server
+    // Internal
+    server.post('/accounts', createOrUpdateAccountController)
+
+    // External
+    
+
+}
+
+export default createRoutes

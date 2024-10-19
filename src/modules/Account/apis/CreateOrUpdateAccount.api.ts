@@ -27,11 +27,11 @@ export async function createOrUpdateAccount(payload: TwitchUserAuthorization) {
         },
     })
 
-    // await createTwitchWebsocketSession(
-    //     account.id,
-    //     createChannelChatMessageEvent,
-    //     handleChannelChatMessageEvent
-    // )
+    await createTwitchWebsocketSession(
+        account.id,
+        createChannelChatMessageEvent,
+        handleChannelChatMessageEvent
+    )
 
     return account
 

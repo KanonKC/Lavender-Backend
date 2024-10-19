@@ -1,11 +1,7 @@
 import { prisma } from "../../../database/prisma";
-import { createChannelChatMessageEvent } from "../../../events/CreateChannelChatMessageEvent";
 import { getTwitchUserByAccessToken } from "../../../services/Twitch.service";
-import { TwitchEventNotification, TwitchUserAuthorization } from "../../../types/Twitch.type";
-import { ChannelChatMessageEvent } from "../../../types/TwitchEventSub.type";
-import { createTwitchWebsocketSession } from "../../../utils/createTwitchWebsocketSession";
 
-export async function enableShoutoutWithClipSettings(accountId: string) {
+export async function enableShoutoutWithClip(accountId: string) {
 
     const account = await prisma.account.findUnique({ where: { id: accountId } })
     
@@ -21,7 +17,7 @@ export async function enableShoutoutWithClipSettings(accountId: string) {
     //     }
     // })
 
-    return prisma.shoutoutWithClipSettings.upsert({
+    return prisma.shoutoutWithClip.upsert({
         create: {
             accountId,
         },

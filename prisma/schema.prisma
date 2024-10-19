@@ -17,12 +17,12 @@ model Account {
     twitchAccessToken           String?
     twitchRefreshToken          String?
     twitchTokenExpiresAt        DateTime?
-    shoutoutWithClipSettings    ShoutoutWithClipSettings?
+    shoutoutWithClip            ShoutoutWithClip?
     createdAt                   DateTime                    @default(now())
     updatedAt                   DateTime                    @updatedAt
 }
 
-model ShoutoutWithClipSettings {
+model ShoutoutWithClip {
     id                      String   @id @default(cuid())
     accountId               String   @unique
     account                 Account  @relation(fields: [accountId], references: [id])
