@@ -1,5 +1,6 @@
 import cors from '@fastify/cors'
 import fastifyStatic from '@fastify/static'
+import fastifyWebsocket from '@fastify/websocket'
 import { configDotenv } from 'dotenv'
 // import server from './router'
 import { createTwitchWebsocketSession } from './utils/createTwitchWebsocketSession'
@@ -19,7 +20,6 @@ const server = fastify()
 server.register(cors, { 
     origin: '*'
 })
-
 
 server.register(fastifyStatic, {
     root: path.join(process.cwd(), 'dumps'),

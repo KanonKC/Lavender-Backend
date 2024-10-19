@@ -1,4 +1,5 @@
 import { showFeaturedTwitchClip } from "../../services/StreamingManagementServer.service";
+import socket from "../../socket";
 import { TwitchEventNotification } from "../../types/Twitch.type";
 import { ChannelChatMessageEvent } from "../../types/TwitchEventSub.type";
 
@@ -13,8 +14,9 @@ export async function handleChannelChatMessageEvent(message: TwitchEventNotifica
     console.log('path', path)
     const clip = await showFeaturedTwitchClip(message.payload.event.chatter_user_id, { options: { outputVideoFilePath: path } })
     const response = {
-        ...clip.data,
-        videoUrl: `${BACKEND_URL}/public/shoutout-clips/${clip.data.videoFilename}`
+        videoUrl: `${BACKEND_URL}/public/shoutout-clips/${clip.data.videoFilename}`,
+        durationMilliseconds: clip.data.durationMilliseconds,
     }
+    socket.emit('deliverShoutoutWithClip', response)
     console.log(response)
 }

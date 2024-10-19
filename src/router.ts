@@ -8,7 +8,6 @@ function createRoutes(server: FastifyInstance) {
     server.post('/accounts', createOrUpdateAccountController)
 
     // External
-    
 
 }
 
