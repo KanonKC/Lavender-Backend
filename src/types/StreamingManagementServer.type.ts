@@ -1,6 +1,10 @@
 export interface ShowFeatureTwitchClipPayload {
     options : {
-        outputVideoFilePath?: string
+        outputVideoFilePath?: string;
+        resolution?: {
+            width: number;
+            height: number;
+        };
     }
 }
 

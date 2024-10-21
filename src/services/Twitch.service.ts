@@ -104,26 +104,24 @@ export async function createEventSubSubscription(
     })
 }
 
-// export async function getEventSubSubscriptions(): Promise<AxiosResponse<TwitchEventSubscription>> {
-//     const { accessToken } = await twitchStore.loadToken()
-//     return twitchAPI.get<TwitchEventSubscription>('/eventsub/subscriptions', {
-//         headers: {
-//             'Content-Type': 'application/json',
-//             'Authorization': `Bearer ${accessToken}`
-//         }
-//     })
-// }
+export async function getEventSubSubscriptions(accessToken: string): Promise<AxiosResponse<TwitchEventSubscription>> {
+    return twitchAPI.get<TwitchEventSubscription>('/eventsub/subscriptions', {
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${accessToken}`
+        }
+    })
+}
 
-// export async function deleteEventSubSubscription(id: string): Promise<AxiosResponse<TwitchEventSubscription>> {
-//     const { accessToken } = await twitchStore.loadToken()
-//     return twitchAPI.delete<TwitchEventSubscription>('/eventsub/subscriptions', {
-//         params: { id },
-//         headers: {
-//             'Content-Type': 'application/json',
-//             'Authorization': `Bearer ${accessToken}`
-//         }
-//     })
-// }
+export async function deleteEventSubSubscription(accessToken: string, id: string): Promise<AxiosResponse<TwitchEventSubscription>> {
+    return twitchAPI.delete<TwitchEventSubscription>('/eventsub/subscriptions', {
+        params: { id },
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${accessToken}`
+        }
+    })
+}
 
 export async function getTwitchUserByAccessToken(accessToken: string) {
     return twitchAPI.get<TwitchUsers>('/users', {

@@ -1,6 +1,6 @@
 import { prisma } from "../../../database/prisma";
-import { createChannelChatMessageEvent } from "../../../events/ChannelChatMessageEvent/CreateChannelChatMessageEvent";
-import { handleChannelChatMessageEvent } from "../../../events/ChannelChatMessageEvent/HandleChannelChatMessageEvent";
+import { createChannelChatMessageEvent } from "../../../websockets/ChannelChatMessage/events/CreateChannelChatMessageEvent";
+import { handleChannelChatMessageEvent } from "../../../websockets/ChannelChatMessage/events/HandleChannelChatMessageEvent";
 import { getTwitchUserByAccessToken } from "../../../services/Twitch.service";
 import { TwitchUserAuthorization } from "../../../types/Twitch.type";
 import { createTwitchWebsocketSession } from "../../../utils/createTwitchWebsocketSession";

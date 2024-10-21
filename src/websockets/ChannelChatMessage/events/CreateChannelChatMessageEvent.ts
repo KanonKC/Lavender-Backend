@@ -1,6 +1,6 @@
-import { getAccountById } from "../../modules/Account/apis/GetAccountById.api";
-import { createEventSubSubscription } from "../../services/Twitch.service";
-import { CreateTwitchEventSubscriptionPayload } from "../../types/Twitch.type";
+import { getAccountById } from "../../../modules/Account/apis/GetAccountById.api";
+import { createEventSubSubscription } from "../../../services/Twitch.service";
+import { CreateTwitchEventSubscriptionPayload } from "../../../types/Twitch.type";
 
 export async function createChannelChatMessageEvent(accountId: string, sessionId: string) {
 

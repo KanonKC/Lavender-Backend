@@ -8,7 +8,7 @@ export interface UpdateShoutoutWithClipSettingsPayload {
 export async function updateShoutoutWithClipSettings(accountId: string, payload: UpdateShoutoutWithClipSettingsPayload) {
 
     return prisma.shoutoutWithClip.update({
-        where: { id: accountId },
+        where: { accountId },
         data: {
             featuredClipPriority: payload.featuredClipPriority,
         },
