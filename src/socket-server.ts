@@ -14,6 +14,9 @@ io.on("connection", (socket) => {
     socket.on("deliverShoutoutWithClip", async (response) => {
         io.emit('recieveShoutoutWithClip', response)
     });
+    socket.on("deliverShowAnImage", async (response) => {
+        io.emit(`recieveShowAnImage/${response.key}`, response.package)
+    });
 })
 
 io.listen(Number(process.env.WEBSOCKET_PORT));

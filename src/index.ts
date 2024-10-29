@@ -6,6 +6,9 @@ import fastify from 'fastify'
 import path from 'node:path'
 import createRoutes from './router'
 import { bulkResetTwitchEventSubscriptions } from './websockets/BulkResetEventSubscriptions'
+import { createChannelPointCustomRewardRedemptionAddEvent } from './websockets/ChannelPointCustomRewardRedemptionAdd/CreateChannelPointCustomRewardRedemptionAddEvent'
+import { handleChannelPointCustomRewardRedemptionAddEvent } from './websockets/ChannelPointCustomRewardRedemptionAdd/HandleChannelPointCustomRewardRedemptionAddEvent'
+import { createTwitchWebsocketSession } from './utils/createTwitchWebsocketSession'
 
 configDotenv()
 const PORT = Number(process.env.PORT) || 8080
@@ -29,12 +32,7 @@ server.listen({ port: PORT }, async (err, address) => {
         console.error(err)
         process.exit(1)
     }
-
-    // await createTwitchWebsocketSession(
-    //     'cm28uxtaz0000i3mi4eejywuq',
-    //     createChannelChatMessageEvent,
-    //     handleChannelChatMessageEvent
-    // )
+    
     await bulkResetTwitchEventSubscriptions()
     console.log(`Server listening at ${address}`)
 })

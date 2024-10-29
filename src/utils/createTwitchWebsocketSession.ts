@@ -14,8 +14,9 @@ import { TwitchEventNotification, TwitchEventSubscription, TwitchWebsocketWelcom
 
 export async function createTwitchWebsocketSession(
     accountId: string,
-	twitchEventSubCreateFunction: (accountId: string, sessionId: string) => Promise<AxiosResponse<TwitchEventSubscription>>,
-    handleEventFunction: (message: TwitchEventNotification<any>) => Promise<void>
+	twitchEventSubCreateFunction: (accountId: string, sessionId: string, options?: any) => Promise<AxiosResponse<TwitchEventSubscription>>,
+    handleEventFunction: (message: TwitchEventNotification<any>) => Promise<void>,
+    subscriptionPayloadOptions?: any
 ) {
 	const ws = new WebSocket("wss://eventsub.wss.twitch.tv/ws");
 
@@ -35,7 +36,7 @@ export async function createTwitchWebsocketSession(
 
 			// await Promise.all(disconnectedSubscriptionsPromise)
 
-			await twitchEventSubCreateFunction(accountId, message.payload.session.id);
+			await twitchEventSubCreateFunction(accountId, message.payload.session.id, subscriptionPayloadOptions);
             // console.log("It success", response.data)
 		} else if (message.metadata.message_type !== "session_keepalive") {
 			// console.log("Received message:", message);

@@ -18,6 +18,7 @@ model Account {
     twitchRefreshToken          String?
     twitchTokenExpiresAt        DateTime?
     shoutoutWithClip            ShoutoutWithClip?
+    showAnImage                 ShowAnImage?
     createdAt                   DateTime                    @default(now())
     updatedAt                   DateTime                    @updatedAt
 }
@@ -31,4 +32,16 @@ model ShoutoutWithClip {
     featuredClipPriority    Boolean  @default(true)
     createdAt               DateTime @default(now())
     updatedAt               DateTime @updatedAt
+}
+
+model ShowAnImage {
+    id                          String   @id @default(cuid())
+    accountId                   String   @unique
+    account                     Account  @relation(fields: [accountId], references: [id])
+    key                         String   @unique @default(cuid())
+    isEnabled                   Boolean  @default(false)
+    channelRewardId             String?  @unique
+    enableImageModeration       Boolean  @default(false)
+    createdAt                   DateTime @default(now())
+    updatedAt                   DateTime @updatedAt
 }

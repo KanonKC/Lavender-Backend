@@ -21,5 +21,5 @@ export async function deliverShoutoutWithClipToClient(targetTwitchId: string) {
 		durationMilliseconds: clip.data.durationMilliseconds,
 	};
 	console.log("response", response);
-	socket.emit("deliverShoutoutWithClip", response);
+	return socket.emit("deliverShoutoutWithClip", response);
 }

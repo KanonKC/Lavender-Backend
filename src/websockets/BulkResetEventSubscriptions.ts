@@ -21,6 +21,10 @@ export async function bulkResetTwitchEventSubscriptions() {
         }
     })
 
-    const resetPromises = users.map((user) => removeUserTwitchSubscriptions(user.twitchAccessToken!))
-    await Promise.all(resetPromises)
+    try {
+        const resetPromises = users.map((user) => removeUserTwitchSubscriptions(user.twitchAccessToken!))
+        await Promise.all(resetPromises)
+    } catch (error) {
+        
+    }
 }

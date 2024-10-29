@@ -15,3 +15,16 @@ export interface ShowFeatureTwitchClip {
     outputVideoFilePath: string;    
     durationMilliseconds: number; 
 }
+
+export interface ShowAnImagePayload {
+    url: string;
+    options: {
+        outputVideoFilePath?: string;
+    }
+}
+
+export interface ShowAnImage {
+    code: string;
+    imagePath: string | null;
+    filename: string | null;
+}
