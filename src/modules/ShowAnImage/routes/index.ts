@@ -1,6 +1,6 @@
 import { FastifyInstance } from "fastify";
 import { twitchAuthentication } from "../../../middleware/auth";
-import { createShowAnImageSettingsController, disableShowAnImageController, enableShowAnImageController, getShowAnImageSettingsController, updateShowAnImageChannelRewardIdController, updateShowAnImageSettingsController } from "../controllers";
+import { createShowAnImageSettingsController, deliverShowAnImageController, disableShowAnImageController, enableShowAnImageController, getShowAnImageSettingsController, updateShowAnImageChannelRewardIdController, updateShowAnImageSettingsController } from "../controllers";
 
 
 export function createShowAnImageRoutes(server: FastifyInstance) {
@@ -41,11 +41,11 @@ export function createShowAnImageRoutes(server: FastifyInstance) {
         preHandler: [twitchAuthentication],
         handler: disableShowAnImageController
     })
-    // server.route({
-    //     method: 'POST',
-    //     url: '/show-an-image/:accountId/test',
-    //     preHandler: [twitchAuthentication],
-    //     handler: deliverShoutoutWithClipController
-    // })
+    server.route({
+        method: 'POST',
+        url: '/show-an-image/:twitchId/test',
+        preHandler: [twitchAuthentication],
+        handler: deliverShowAnImageController
+    })
 
 }

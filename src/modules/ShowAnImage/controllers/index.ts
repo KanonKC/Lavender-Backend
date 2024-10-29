@@ -5,6 +5,7 @@ import {
 	UpdateShowAnImageSettingsPayload,
 } from "../apis/UpdateShowAnImageSettings.api";
 import { getShowAnImageSettings } from "../apis/GetShowAnImageSettings.api";
+import { deliverShowAnImageToClient } from "../apis/DeliverShowAnImageToClient.api";
 
 export async function createShowAnImageSettingsController(
 	req: FastifyRequest<{
@@ -104,17 +105,17 @@ export async function getShowAnImageSettingsController(
 	}
 }
 
-// export async function deliverShowAnImageController(
-// 	req: FastifyRequest<{
-//         Params: { accountId: string },
-//     }>,
-// 	res: FastifyReply
-// ) {
-// 	const { accountId } = req.params;
-// 	try {
-// 		await deliverShowAnImageToClient("705932393");
-// 		return res.status(204);
-// 	} catch (error) {
-// 		res.status(404).send({ error: error });
-// 	}
-// }
+export async function deliverShowAnImageController(
+	req: FastifyRequest<{
+        Params: { twitchId: string },
+    }>,
+	res: FastifyReply
+) {
+	const { twitchId } = req.params;
+	try {
+		await deliverShowAnImageToClient(twitchId, "https://i.redd.it/80jykz32log21.png");
+		return res.status(204);
+	} catch (error) {
+		res.status(404).send({ error: error });
+	}
+}
